@@ -3,7 +3,7 @@ import fx1Shader from './shaders/fx1.js';
 (function() {
   // set the scene size
   const container = document.querySelector('.container');
-  let width = window.innerHeight, height = width * 0.563;
+  let width = window.innerWidth, height = width * 0.563;
 
   // set some camera attributes
   const VIEW_ANGLE = 45, NEAR = 0.1, FAR = 10000;
