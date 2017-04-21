@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 
-import fx1Shader from 'shaders/fx1.js';
+import waterRippleShader from 'shaders/waterRipple.js';
 import glamorous from 'glamorous';
 
 const Div = glamorous.div({
   cursor: 'pointer',
 });
 
-class FxGallery extends Component {
+class BoatRipple extends Component {
   // set the scene size
   componentDidMount() {
     let width = window.innerWidth, height = width * 0.563;
@@ -38,7 +38,7 @@ class FxGallery extends Component {
     // set up plane dimensions
     const w = 1.28, l = 0.72;
 
-    const planeMaterial = new THREE.ShaderMaterial(fx1Shader);
+    const planeMaterial = new THREE.ShaderMaterial(waterRippleShader);
     materials.push(planeMaterial);
 
     const boatGreenTextures = [];
@@ -66,36 +66,17 @@ class FxGallery extends Component {
     scene.add(plane);
     update();
 
-    this.refs.canvas.addEventListener('mousemove', evt => {
-      materials.forEach(material => {
-        if (material.uniforms.uCursor) {
-          material.uniforms.uCursor.value = new THREE.Vector2(
-            evt.clientX / window.innerWidth,
-            evt.clientY / window.innerHeight
-          );
-        }
-      });
-    });
-
+    // this.refs.canvas.addEventListener('mousemove', evt => {});
     let index = 1;
     this.refs.canvas.addEventListener('click', evt => {
       index++;
-      materials.forEach(material => {
-        if (material.uniforms.uCursor) {
-          [1, 2, 3].forEach(num => {
-            planeMaterial.uniforms.uImage.value = boatGreenTextures[
-              (num - 1 + index) % 3
-            ];
-            planeMaterial.uniforms.uImageMask.value = boatGreenMasks[
-              (num - 1 + index) % 3
-            ];
-          });
-        }
-      });
+      planeMaterial.uniforms.uImage.value = boatGreenTextures[index % 3];
+      planeMaterial.uniforms.uImageMask.value = boatGreenMasks[index % 3];
     });
 
-    function update(t) {
-      window.requestAnimationFrame(update, t);
+    function update(t, dt) {
+      window.requestAnimationFrame(update, t, dt);
+      // console.log(dt);
 
       materials.forEach(material => {
         if (material.uniforms.uTime) {
@@ -108,6 +89,8 @@ class FxGallery extends Component {
     function render() {
       renderer.render(scene, camera);
     }
+
+    const DELTA_T = 8;
   }
 
   render() {
@@ -115,4 +98,4 @@ class FxGallery extends Component {
   }
 }
 
-export default FxGallery;
+export default BoatRipple;

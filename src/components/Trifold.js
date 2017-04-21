@@ -29,7 +29,7 @@ const Div = glamorous.div({
 const Trifold = props => (
   <Container display="flex" width="100vw">
     {props.children.map(child => (
-      <Div key={child.name} style={{ backgroundImage: `url(${child.image})` }}>
+      <Div key={child.name} style={{ backgroundImage: `url(img/${child.image})` }}>
         <H1>
           {child.name}
         </H1>
