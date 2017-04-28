@@ -1,0 +1,41 @@
+{
+  "name": "spring-break-2017",
+  "version": "1.0.0",
+  "description": "Photo Gallery",
+  "main": "index.js",
+  "scripts": {
+    "start": "webpack-dev-server",
+    "build:prod": "webpack -p"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/brainsandspace/spring-break-2017.git"
+  },
+  "keywords": [
+    "photos"
+  ],
+  "author": "David Baker",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/brainsandspace/spring-break-2017/issues"
+  },
+  "homepage": "https://github.com/brainsandspace/spring-break-2017#readme",
+  "devDependencies": {
+    "babel-core": "^6.24.1",
+    "babel-loader": "^6.4.1",
+    "babel-polyfill": "^6.23.0",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-react": "^6.24.1",
+    "babel-preset-stage-0": "^6.24.1",
+    "circular-dependency-plugin": "^3.0.0",
+    "image-webpack-loader": "^3.3.0",
+    "webpack": "^2.4.1",
+    "webpack-dev-server": "^2.4.2"
+  },
+  "dependencies": {
+    "glamor": "^2.20.24",
+    "glamorous": "^3.8.0",
+    "react": "^15.5.4",
+    "react-dom": "^15.5.4"
+  }
+}
