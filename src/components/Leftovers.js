@@ -1,16 +1,19 @@
 import React, { Component } from 'react';
 
-import aboutFaceShader from 'shaders/aboutFace.js';
+import leftoversShader from 'shaders/leftovers.js';
 import glamorous from 'glamorous';
 
 const Div = glamorous.div({
-  cursor: 'pointer',
+  width: '100%',
+  '& canvas': {
+    width: '100%'
+  }
 });
 
-class AboutFace2 extends Component {
+class Leftovers extends Component {
   // set the scene size
   componentDidMount() {
-    let width = window.innerWidth, height = width * 0.563;
+    let width = this.canvas.parentElement.clientWidth, height = this.canvas.parentElement.clientHeight;
 
     // set some camera attributes
     const VIEW_ANGLE = 45, NEAR = 0.1, FAR = 10000;
@@ -38,22 +41,27 @@ class AboutFace2 extends Component {
     // set up plane dimensions
     const w = 1.28, l = 0.72;
 
-    const planeMaterial = new THREE.ShaderMaterial(aboutFaceShader);
+    const planeMaterial = new THREE.ShaderMaterial(leftoversShader);
     materials.push(planeMaterial);
 
-    const cTextures = [];
-    const dTextures = [];
+    const foregroundTextures = [];
+    const maskTextures = [];
+    const backgroundTextures = [];
 
     // [1, 2, 3].forEach(num => {
-      cTextures.push(
-        new THREE.TextureLoader().load(`img/about-face-2-c.jpg`)
+      foregroundTextures.push(
+        new THREE.TextureLoader().load(`img/leftovers-park.jpg`)
       );
-      dTextures.push(
-        new THREE.TextureLoader().load(`img/about-face-2-d.jpg`)
+      maskTextures.push(
+        new THREE.TextureLoader().load(`img/leftovers-park-mask.png`)
+      );
+      backgroundTextures.push(
+        new THREE.TextureLoader().load(`img/leftovers-park-bg.jpg`)
       );
     // });
-    planeMaterial.uniforms.uImageC.value = cTextures[0];
-    planeMaterial.uniforms.uImageD.value = dTextures[0];
+    planeMaterial.uniforms.uImage.value = foregroundTextures[0];
+    planeMaterial.uniforms.uImageMask.value = maskTextures[0];
+    planeMaterial.uniforms.uImageBG.value = backgroundTextures[0];
 
     // create mesh with plane geometry
     let plane = new THREE.Mesh(
@@ -68,10 +76,11 @@ class AboutFace2 extends Component {
 
     // this.canvas.addEventListener('mousemove', evt => {});
     let index = 1;
-    this.canvas.addEventListener('click', evt => {
-      index++;
-      console.log(evt.clientX/window.innerWidth)
-    });
+    // this.canvas.addEventListener('click', evt => {
+    //   index++;
+    //   planeMaterial.uniforms.uImage.value = foregroundTextures[index % 3];
+    //   planeMaterial.uniforms.uImageMask.value = maskTextures[index % 3];
+    // });
 
     function update(t, dt) {
       window.requestAnimationFrame(update, t, dt);
@@ -97,4 +106,4 @@ class AboutFace2 extends Component {
   }
 }
 
-export default AboutFace2;
+export default Leftovers;

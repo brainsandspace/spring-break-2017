@@ -4,7 +4,7 @@ import bridgeShader from 'shaders/bridge.js';
 import glamorous from 'glamorous';
 
 const Div = glamorous.div({
-  cursor: 'pointer',
+  // cursor: 'pointer',
 });
 
 class Bridge extends Component {
@@ -68,11 +68,11 @@ class Bridge extends Component {
 
     // this.canvas.addEventListener('mousemove', evt => {});
     let index = 1;
-    this.canvas.addEventListener('click', evt => {
-      index++;
-      planeMaterial.uniforms.uImage.value = boatGreenTextures[index % 3];
-      planeMaterial.uniforms.uImageMask.value = boatGreenMasks[index % 3];
-    });
+    // this.canvas.addEventListener('click', evt => {
+    //   index++;
+    //   planeMaterial.uniforms.uImage.value = boatGreenTextures[index % 3];
+    //   planeMaterial.uniforms.uImageMask.value = boatGreenMasks[index % 3];
+    // });
 
     function update(t, dt) {
       window.requestAnimationFrame(update, t, dt);
